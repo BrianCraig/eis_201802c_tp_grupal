@@ -14,10 +14,9 @@ Ejercitar la escritura de código en ambientes colaborativos utilizando una meto
 
 Nro | Nombre | Legajo | Mail
 ----|--------|--------|------
-1   |        |        |
-2   |        |        |
-3   |        |        |
-4   |        |        |
+1   | Franco Neira |  | neira.franco.ariel@gmail.com
+2   | Camila Sosa  | 31666 | camila_ines_sosa@hotmail.com
+3   | Brian Craig | 32202 | briancraigok@gmail.com
     
 ### Entrega
 
