@@ -4,5 +4,5 @@ Feature: Bomb Explotion
     Given a cell
 
    Scenario: A bomb explodes in a cell
-     When a bomb explodes
+     When a bomb with range 3 explodes
      Then destroys melamine walls 3 cells away
