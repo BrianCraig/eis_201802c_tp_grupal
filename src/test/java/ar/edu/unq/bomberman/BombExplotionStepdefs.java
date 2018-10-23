@@ -13,14 +13,14 @@ public class BombExplotionStepdefs {
 		this.cell = new Cell();
 	}
 
-	@When("^bomb explodes$")
+	@When("^a bomb explodes$")
   	public void Explode_bomb(){
 		this.cell.explodeBomb();
 	}
 
-	@Then("^destroy melamine walls 3 cells away$")
+	@Then("^destroys melamine walls 3 cells away$")
 	public boolean Destory_walls(){
-		this.cell.anyMelamineWallsThreeCellsAway()
+		this.cell.anyMelamineWallsThreeCellsAway();
 	}
 
 }
