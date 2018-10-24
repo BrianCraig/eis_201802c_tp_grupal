@@ -23,8 +23,9 @@ public class Cell {
 
 	private void explodeNextNCells(Direction direction, Integer range) {
 		Cell cell = surroundingCells.get(direction);
+		CellType previousType = cell.type;
 		cell.explotionFire();
-		if(cell.type.equals(CellType.Empty) && range>0) {
+		if(cell.type.equals(previousType) && range>0) {
 			cell.explodeNextNCells(direction, range-1);
 		}
 	}
@@ -38,5 +39,13 @@ public class Cell {
 		dirs.add(Direction.North); dirs.add(Direction.South);
 		dirs.add(Direction.East); dirs.add(Direction.West);
 		return dirs;
+	}
+	
+	public Cell getNextCellTo(Direction dir){
+		return surroundingCells.get(dir);
+	}
+	
+	public CellType getType() {
+		return type;
 	}
 }
