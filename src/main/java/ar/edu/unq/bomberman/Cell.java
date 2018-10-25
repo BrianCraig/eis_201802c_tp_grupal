@@ -5,11 +5,11 @@ import java.util.HashMap;
 
 public class Cell {
 	
-	private CellType type;
+	private CellContent content;
 	private HashMap<Direction, Cell> surroundingCells;
 
-	public Cell(CellType type, HashMap<Direction, Cell> cells) {
-		this.type = type;
+	public Cell(CellContent type, HashMap<Direction, Cell> cells) {
+		this.content = type;
 		this.surroundingCells = cells;
 	}
 	
@@ -23,15 +23,17 @@ public class Cell {
 
 	private void explodeNextNCells(Direction direction, Integer range) {
 		Cell cell = surroundingCells.get(direction);
-		CellType previousType = cell.type;
-		cell.explotionFire();
-		if(cell.type.equals(previousType) && range>0) {
+		CellContent previousType = cell.content;
+		cell.destroy();
+		if(previousType.equals(CellContent.Empty) && range>0) {
 			cell.explodeNextNCells(direction, range-1);
 		}
 	}
 	
-	private void explotionFire() {
-		this.type = CellType.Empty; 
+	private void destroy() {
+		if(this.content.isDestroyable()) {
+			this.content = CellContent.Empty;
+		}
 	}
 	
 	private ArrayList<Direction> directions() {
@@ -45,7 +47,11 @@ public class Cell {
 		return surroundingCells.get(dir);
 	}
 	
-	public CellType getType() {
-		return type;
+	public CellContent getContent() {
+		return content;
+	}
+
+	public void empty() {
+		this.content = CellContent.Empty;
 	}
 }
