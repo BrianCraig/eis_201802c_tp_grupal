@@ -3,13 +3,13 @@ Feature: Bomb explotion destroys melamine cells, never destroys steel cells
 
   Background: Cell surrounded with a radius of 3 cells:
   
-  									|_|							References:
-  									|_|							B = Bomb
-  									|S|							_ = Empty Cell
-  						|_|M|_|B|_|_|M|				M = Melanine Cell
-  									|_|							S = Steel Cell
-  									|E|							E = Enemy
-  									|_|
+                    |_|        References:
+                    |_|             B = Bomb
+                    |S|             _ = Empty Cell
+              |_|M|_|B|_|_|M|       M = Melanine Cell
+                    |_|             S = Steel Cell
+                    |E|             E = Enemy
+                    |_|
   										
     Given a cell
 
