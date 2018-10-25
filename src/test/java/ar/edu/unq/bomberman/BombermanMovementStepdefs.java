@@ -9,6 +9,7 @@ import cucumber.api.java.en.When;
 public class BombermanMovementStepdefs {
 
     Bomberman bomberman;
+    Cell initialCell;
 
     @Given("^a cell with Bomberman$")
     public void Bomberman_in_a_cell(){
@@ -24,19 +25,38 @@ public class BombermanMovementStepdefs {
     	cells.put(Direction.North, north); cells.put(Direction.South, south);
     	cells.put(Direction.East, east); cells.put(Direction.West, west);
     	
-    	Cell bombermanCell = new Cell(CellContent.Bomberman,cells);
+    	Cell initialCell = new Cell(CellContent.Bomberman,cells);
     	
-        this.bomberman = new Bomberman(bombermanCell);
+        this.bomberman = new Bomberman(initialCell);
     }
-
 
     @When("^Bomberman moves to an empty cell$")
     public void Bomberman_moves_to_an_empty_cell() {
     	bomberman.moveTo(Direction.South);
     }
 
-    @Then("^Bomberman's position changes$")
+    @Then("^Bomberman position changes$")
     public boolean Check_Bomberman_position() {
-    	return true;
+    	return (bomberman.getPosition() == initialCell);
+    }
+    
+    @When("^Bomberman try to move to a cell with a wall$")
+    public void Bomberman_moves_to_a_wall() {
+    	bomberman.moveTo(Direction.North);
+    }
+    
+    @Then("^Bomberman will not change his position$")
+    public boolean Bomberman_has_same_position() {
+    	return(bomberman.getPosition() == initialCell);
+    }
+    
+    @When("^Bomberman moves to a cell with an enemy$")
+    public void Bomberman_moves_to_enemy() {
+    	bomberman.moveTo(Direction.East);
+    }
+    
+    @Then("^Bomberman will die$")
+    public boolean Bomberman_is_dead() {
+    	return bomberman.isAlive();
     }
 }
