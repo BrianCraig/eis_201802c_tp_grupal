@@ -8,19 +8,24 @@ public class BombermanMovementStepdefs {
 
     Bomberman bomberman;
     Cell initialCell;
+    Entity enemy;
 
     @Given("^a cell with Bomberman$")
     public void Bomberman_in_a_cell(){
       BoardGenerator boardGenerator = new BoardGenerator();
 
-      Cell initialCell = new Cell(CellContent.Bomberman, new Position(0, 0));
+      Cell initialCell = new Cell(CellContent.Empty, new Position(0, 0));
       this.bomberman = new Bomberman(initialCell);
-
+      this.enemy = new Bagulaa();
+      
+      Cell cellWithEnemy = new Cell(CellContent.Empty, new Position(-1,0));
+      cellWithEnemy.setEntity(enemy);
+      
       boardGenerator.add(initialCell);
 
       boardGenerator.add(new Cell(CellContent.Melamine, new Position(0, 1)));
       boardGenerator.add(new Cell(CellContent.Empty, new Position(0, -1)));
-      boardGenerator.add(new Cell(CellContent.Enemy, new Position(-1, 0)));
+      boardGenerator.add(cellWithEnemy);
       boardGenerator.add(new Cell(CellContent.Steel, new Position(1, 0)));
 
       boardGenerator.linkCells();
@@ -53,6 +58,6 @@ public class BombermanMovementStepdefs {
     
     @Then("^Bomberman will die$")
     public boolean Bomberman_is_dead() {
-    	return bomberman.isAlive();
+    	return !bomberman.isAlive();
     }
 }

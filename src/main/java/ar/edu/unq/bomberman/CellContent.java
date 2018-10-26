@@ -4,9 +4,8 @@ public enum CellContent {
 	
 	Steel(false,false),
 	Melamine(false,true),
-	Empty(true,false), 
-	Enemy(false,true), 
-	Bomberman(true,true);
+	Empty(true,false),
+	Bomb(false,true);
 	
 	private boolean canWalkThrough;
 	private boolean destroyable;

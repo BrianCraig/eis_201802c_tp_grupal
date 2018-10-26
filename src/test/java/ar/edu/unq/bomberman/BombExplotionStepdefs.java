@@ -11,14 +11,17 @@ public class BombExplotionStepdefs {
 	@Given("^a cell$")
 	public void Add_Cell(){
 		BoardGenerator boardGenerator = new BoardGenerator();
-
+		Entity enemy = new Bagulaa();
+		
 		this.cell = new Cell(CellContent.Empty, new Position(0,0));
 		boardGenerator.add(cell);
 
 		boardGenerator.add(new Cell(CellContent.Steel, new Position(0, 1)));
 
 		boardGenerator.add(new Cell(CellContent.Empty, new Position(0, -1)));
-		boardGenerator.add(new Cell(CellContent.Enemy, new Position(0, -2)));
+		Cell cellWithEnemy = new Cell(CellContent.Empty, new Position(0,-2));
+		cellWithEnemy.setEntity(enemy);
+		boardGenerator.add(cellWithEnemy);
 		boardGenerator.add(new Cell(CellContent.Empty, new Position(0, -3)));
 
 		boardGenerator.add(new Cell(CellContent.Empty, new Position(-1, 0)));
@@ -52,7 +55,7 @@ public class BombExplotionStepdefs {
 	
 	@Then("^kills an enemy 2 cells away$")
 	public boolean check_enemy() {
-		return (cell.getNextCellTo(Direction.South).getContent() == CellContent.Empty);
+		return (cell.getNextCellTo(Direction.South).getEntity() == null);
 	}
 
 }

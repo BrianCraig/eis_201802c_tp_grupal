@@ -8,6 +8,7 @@ public class Cell {
 	private CellContent content;
 	private HashMap<Direction, Cell> surroundingCells =  new HashMap<>();
 	private Position position;
+	private Entity entity = null;
 
 	public Cell(CellContent type, Position position) {
 		this.content = type;
@@ -27,7 +28,7 @@ public class Cell {
 		Cell cell = surroundingCells.get(direction);
 		CellContent previousType = cell.content;
 		cell.destroy();
-		if(previousType.equals(CellContent.Empty) && range>0) {
+		if(previousType.equals(CellContent.Empty) && cell.getEntity()==null && range>1) {
 			cell.explodeNextNCells(direction, range-1);
 		}
 	}
@@ -52,5 +53,21 @@ public class Cell {
 
 	public Position getPosition() {
 		return position;
+	}
+	
+	public void addBomb() {
+		this.content = CellContent.Bomb;
+	}
+	
+	public Entity getEntity() {
+		return entity;
+	}
+	
+	public void setEntity(Entity entity) {
+		this.entity = entity;
+	}
+	
+	public void removeEntity() {
+		this.entity = null;
 	}
 }
