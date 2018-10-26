@@ -14,8 +14,6 @@ public class Bomberman {
 	CellContent content = nextCell.getContent();
 	if(content==CellContent.Empty) {
 		position = nextCell;
-	}
-	if(content==CellContent.Enemy) {
 		position.empty();
 		isAlive = false;
 	}
