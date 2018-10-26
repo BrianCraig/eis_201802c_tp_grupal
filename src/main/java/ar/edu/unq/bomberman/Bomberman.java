@@ -3,7 +3,7 @@ package ar.edu.unq.bomberman;
 public class Bomberman {
 	
   private Cell position;
-  private Boolean isAlive;
+  private Boolean isAlive = true;
   
   public Bomberman(Cell initialPosition){
 	  this.position = initialPosition;

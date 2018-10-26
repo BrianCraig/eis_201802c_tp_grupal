@@ -1,7 +1,5 @@
 package ar.edu.unq.bomberman;
 
-import java.util.HashMap;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -13,21 +11,19 @@ public class BombermanMovementStepdefs {
 
     @Given("^a cell with Bomberman$")
     public void Bomberman_in_a_cell(){
-    	
-    	HashMap<Direction,Cell> cells = new HashMap<Direction,Cell>();
-    	HashMap<Direction,Cell> mockCells = new HashMap<Direction,Cell>();
-    	
-    	Cell north = new Cell(CellContent.Melamine,mockCells);
-    	Cell south = new Cell(CellContent.Empty,mockCells);
-    	Cell east = new Cell(CellContent.Enemy,mockCells);
-    	Cell west = new Cell(CellContent.Steel,mockCells);
-    	
-    	cells.put(Direction.North, north); cells.put(Direction.South, south);
-    	cells.put(Direction.East, east); cells.put(Direction.West, west);
-    	
-    	Cell initialCell = new Cell(CellContent.Bomberman,cells);
-    	
-        this.bomberman = new Bomberman(initialCell);
+      BoardGenerator boardGenerator = new BoardGenerator();
+
+      Cell initialCell = new Cell(CellContent.Bomberman, new Position(0, 0));
+      this.bomberman = new Bomberman(initialCell);
+
+      boardGenerator.add(initialCell);
+
+      boardGenerator.add(new Cell(CellContent.Melamine, new Position(0, 1)));
+      boardGenerator.add(new Cell(CellContent.Empty, new Position(0, -1)));
+      boardGenerator.add(new Cell(CellContent.Enemy, new Position(-1, 0)));
+      boardGenerator.add(new Cell(CellContent.Steel, new Position(1, 0)));
+
+      boardGenerator.linkCells();
     }
 
     @When("^Bomberman moves to an empty cell$")
