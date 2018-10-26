@@ -1,21 +1,22 @@
 package ar.edu.unq.bomberman;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Cell {
 	
-	private CellType type;
+	private CellContent content;
 	private HashMap<Direction, Cell> surroundingCells;
 
-	public Cell(CellType type, HashMap<Direction, Cell> cells) {
-		this.type = type;
+	public Cell(CellContent type, HashMap<Direction, Cell> cells) {
+		this.content = type;
 		this.surroundingCells = cells;
 	}
 	
 	public void explodeBomb(Integer range) {
-		ArrayList<Direction> directions = this.directions();
-		for(int i=0; i< 4; i++) {
+		ArrayList<Direction> directions = new ArrayList<Direction>(Arrays.asList(Direction.values()));
+		for(int i=0; i< directions.size(); i++) {
 			Direction dir = directions.get(i);
 			this.explodeNextNCells(dir, range);
 		}
@@ -23,29 +24,28 @@ public class Cell {
 
 	private void explodeNextNCells(Direction direction, Integer range) {
 		Cell cell = surroundingCells.get(direction);
-		CellType previousType = cell.type;
-		cell.explotionFire();
-		if(cell.type.equals(previousType) && range>0) {
+		CellContent previousType = cell.content;
+		cell.destroy();
+		if(previousType.equals(CellContent.Empty) && range>0) {
 			cell.explodeNextNCells(direction, range-1);
 		}
 	}
 	
-	private void explotionFire() {
-		this.type = CellType.Empty; 
-	}
-	
-	private ArrayList<Direction> directions() {
-		ArrayList<Direction> dirs = new ArrayList<Direction>();
-		dirs.add(Direction.North); dirs.add(Direction.South);
-		dirs.add(Direction.East); dirs.add(Direction.West);
-		return dirs;
+	private void destroy() {
+		if(this.content.isDestroyable()) {
+			this.content = CellContent.Empty;
+		}
 	}
 	
 	public Cell getNextCellTo(Direction dir){
 		return surroundingCells.get(dir);
 	}
 	
-	public CellType getType() {
-		return type;
+	public CellContent getContent() {
+		return content;
+	}
+
+	public void empty() {
+		this.content = CellContent.Empty;
 	}
 }
