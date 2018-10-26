@@ -1,25 +1,26 @@
 package ar.edu.unq.bomberman;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class Cell {
 	
 	private CellContent content;
-	private HashMap<Direction, Cell> surroundingCells;
+	private HashMap<Direction, Cell> surroundingCells =  new HashMap<>();
+	private Position position;
 
-	public Cell(CellContent type, HashMap<Direction, Cell> cells) {
+	public Cell(CellContent type, Position position) {
 		this.content = type;
-		this.surroundingCells = cells;
+		this.position = position;
+	}
+
+	public void addCell(Direction direction, Cell cell){
+		surroundingCells.put(direction, cell);
 	}
 	
 	public void explodeBomb(Integer range) {
-		ArrayList<Direction> directions = new ArrayList<Direction>(Arrays.asList(Direction.values()));
-		for(int i=0; i< directions.size(); i++) {
-			Direction dir = directions.get(i);
-			this.explodeNextNCells(dir, range);
-		}
+		Arrays.stream(Direction.values())
+				.forEach(direction -> this.explodeNextNCells(direction, range));
 	}
 
 	private void explodeNextNCells(Direction direction, Integer range) {
@@ -47,5 +48,9 @@ public class Cell {
 
 	public void empty() {
 		this.content = CellContent.Empty;
+	}
+
+	public Position getPosition() {
+		return position;
 	}
 }
