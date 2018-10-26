@@ -6,6 +6,7 @@ public class Bomberman implements Entity{
 	
   private Cell position;
   private Boolean isAlive = true;
+  private ArrayList<Power> powers = new ArrayList<Power>();
   private ArrayList<Bomb> activeBombs = new ArrayList<Bomb>();
   private Integer bombRange = 3;
   private Integer bombTicks = 3;
@@ -59,6 +60,21 @@ public class Bomberman implements Entity{
   
   public void setRange(Integer range) {
 	  this.bombRange = range;
+  }
+
+  @Override
+  public void kill() {
+	this.isAlive = false;
+  }
+
+  public void givePower(Power power) {
+	  if(!powers.contains(power)) {
+		  this.powers.add(power);
+	  }
+  }
+  
+  public ArrayList<Power> getPowers(){
+	  return powers;
   }
   
 }

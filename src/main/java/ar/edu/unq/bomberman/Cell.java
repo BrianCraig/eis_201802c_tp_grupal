@@ -37,6 +37,10 @@ public class Cell {
 		if(this.content.isDestroyable()) {
 			this.content = CellContent.Empty;
 		}
+		if(entity!= null) {
+			entity.kill();
+			entity = null;
+		}
 	}
 	
 	public Cell getNextCellTo(Direction dir){

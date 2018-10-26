@@ -1,5 +1,10 @@
 package ar.edu.unq.bomberman;
 
-public class Bagulaa implements Entity{
+public class Bagulaa extends Enemy{
 
+	Power power = Power.ThrowBombs;
+	
+	public Bagulaa(Bomberman bomberman) {
+		super(bomberman);
+	}
 }

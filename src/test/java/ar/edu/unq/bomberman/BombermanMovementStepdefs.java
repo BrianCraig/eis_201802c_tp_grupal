@@ -16,7 +16,7 @@ public class BombermanMovementStepdefs {
 
       Cell initialCell = new Cell(CellContent.Empty, new Position(0, 0));
       this.bomberman = new Bomberman(initialCell);
-      this.enemy = new Bagulaa();
+      this.enemy = new Bagulaa(bomberman);
       
       Cell cellWithEnemy = new Cell(CellContent.Empty, new Position(-1,0));
       cellWithEnemy.setEntity(enemy);

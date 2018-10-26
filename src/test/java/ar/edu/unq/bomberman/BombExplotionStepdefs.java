@@ -11,7 +11,8 @@ public class BombExplotionStepdefs {
 	@Given("^a cell$")
 	public void Add_Cell(){
 		BoardGenerator boardGenerator = new BoardGenerator();
-		Entity enemy = new Bagulaa();
+		Cell mockCell = new Cell(CellContent.Empty,new Position (2,2));
+		Entity enemy = new Bagulaa(new Bomberman(mockCell));
 		
 		this.cell = new Cell(CellContent.Empty, new Position(0,0));
 		boardGenerator.add(cell);
