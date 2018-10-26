@@ -24,5 +24,3 @@ Feature: Bomb explotion destroys melamine cells, never destroys steel cells
 		Scenario: A bomb explodes in a cell
 		  When a bomb with range 3 explodes
 		  Then kills an enemy 2 cells away
-
-	
