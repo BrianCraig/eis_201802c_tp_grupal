@@ -1,11 +1,15 @@
 Feature: Bomberman is able to use all of his 3 powers
 
   Background: Bomberman in a board:
-
+  
+                  |M|      References:
+                |O|B|_|         B = Bomberman  O = Cell with a bomb
+                  |_|           _ = Empty cell M = Melamine cell
+                                                    
     Given a bomberman with all 3 powers
 
-		Scenario: Bomberman can launch bombs 
-			When bomberman launch a bomb 2 cells away to the east
+		Scenario: Bomberman can throw bombs 
+			When bomberman throw a bomb 1 cell away to the east
 			Then this cell contains a bomb
 			
 		Scenario: Bomberman can walk through melanine walls
