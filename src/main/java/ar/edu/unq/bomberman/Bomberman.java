@@ -19,7 +19,8 @@ public class Bomberman implements Entity{
   public void moveTo(Direction direction) {
 	Cell nextCell = position.getNextCellTo(direction);
 	CellContent content = nextCell.getContent();
-	if(content==CellContent.Empty && nextCell.getEntity()==null) {
+	if((content==CellContent.Empty && nextCell.getEntity()==null)
+	||(content==CellContent.Melamine && powers.contains(Power.WalkThroughWalls))) {
 		position.removeEntity();
 		position = nextCell;
 		position.setEntity(this);
@@ -39,9 +40,11 @@ public class Bomberman implements Entity{
   }
 
   public void layBomb() {
+	  if(activeBombs.isEmpty() || powers.contains(Power.LayMultipleBombs)) {
 	  Bomb bomb = new Bomb(bombRange,bombTicks,position);
 	  activeBombs.add(bomb);
 	  this.position.addBomb();
+	  }
   }
   
   public void tickBombs() {
@@ -75,6 +78,24 @@ public class Bomberman implements Entity{
   
   public ArrayList<Power> getPowers(){
 	  return powers;
+  }
+  
+  public void throwBomb(Direction direction, Integer cells) {
+	  if(powers.contains(Power.ThrowBombs)) {
+		  Cell target =  position;
+		  int counter = cells;
+		  while(counter>0) {
+			  target = target.getNextCellTo(direction);
+			  counter --;
+		  }
+		  this.throwBombIntoCell(target);
+	  }
+  }
+  
+  private void throwBombIntoCell(Cell target) {
+	  Bomb bomb = new Bomb(bombRange,bombTicks,target);
+	  activeBombs.add(bomb);
+	  target.addBomb();  
   }
   
 }
